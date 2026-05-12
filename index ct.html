@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZONE 35 | Goztepe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --gz-red: #E63946; --gz-yellow: #FFB703; --gz-dark: #1D1D1D; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--gz-red);
+            background-image: linear-gradient(135deg, var(--gz-red) 0%, #901720 100%);
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; padding: 20px;
+        }
+        .container {
+            background: white; padding: 35px; border-radius: 30px;
+            width: 100%; max-width: 480px; border: 8px solid var(--gz-yellow);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+        h1 { color: var(--gz-red); text-align: center; font-weight: 800; font-size: 36px; letter-spacing: -1px; margin-bottom: 5px; }
+        .subtitle { text-align: center; font-size: 12px; font-weight: 600; margin-bottom: 25px; border-bottom: 3px solid var(--gz-yellow); padding-bottom: 10px; text-transform: uppercase; }
+        .input-group { margin-bottom: 18px; }
+        label { display: block; font-size: 11px; font-weight: 800; color: var(--gz-red); margin-bottom: 6px; text-transform: uppercase; }
+        select { width: 100%; padding: 14px; border: 2px solid #EEE; border-radius: 12px; outline: none; font-family: inherit; font-weight: 500; cursor: pointer; }
+        button {
+            width: 100%; padding: 18px; background: var(--gz-yellow); color: var(--gz-dark);
+            border: none; border-radius: 15px; font-size: 18px; font-weight: 800; cursor: pointer;
+            text-transform: uppercase; box-shadow: 0 5px 0 #cc9202; transition: 0.2s; margin-top: 10px;
+        }
+        button:active { transform: translateY(3px); box-shadow: none; }
+        #result-box {
+            margin-top: 25px; padding: 20px; background: var(--gz-dark);
+            color: white; border-radius: 15px; display: none; text-align: center;
+            border-left: 10px solid var(--gz-yellow);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ZONE 35</h1>
+    <p class="subtitle">Creator Workspace Selector | Goztepe</p>
+
+    <div class="input-group">
+        <label>The Mission</label>
+        <select id="mission">
+            <option value="">-- Choose --</option>
+            <option value="Creative">Creative Writing</option>
+            <option value="Quick">Quick Task</option>
+            <option value="Focus">Focus Work</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label>Noise Level</label>
+        <select id="noise">
+            <option value="">-- Choose --</option>
+            <option value="Silent">Silent</option>
+            <option value="Hum">Background Hum</option>
+            <option value="Energetic">Energetic</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label>Crowd Density</label>
+        <select id="crowd">
+            <option value="">-- Choose --</option>
+            <option value="Isolated">Isolated</option>
+            <option value="Busy">Busy</option>
+            <option value="Networking">Networking</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label>Location</label>
+        <select id="location">
+            <option value="">-- Choose --</option>
+            <option value="Seaside">Seaside</option>
+            <option value="Main">Main Road</option>
+            <option value="Backstreets">Backstreets</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label>Menu Vibe</label>
+        <select id="menuvibe">
+            <option value="">-- Choose --</option>
+            <option value="Budget">Budget Friendly</option>
+            <option value="Fine">Fine Dining</option>
+            <option value="Cozy">Cozy</option>
+        </select>
+    </div>
+
+    <button onclick="runAlgorithm()">Find My Spot</button>
+
+    <div id="result-box">
+        <p style="font-size: 10px; color: var(--gz-yellow); font-weight: 800;">MATCH FOUND:</p>
+        <p id="res-name" style="font-weight: 700; font-size: 20px; margin-top: 5px;"></p>
+    </div>
+</div>
+
+<script>
+    function runAlgorithm() {
+        const m = document.getElementById('mission').value;
+        const n = document.getElementById('noise').value;
+        const c = document.getElementById('crowd').value;
+        const l = document.getElementById('location').value;
+        const v = document.getElementById('menuvibe').value;
+
+        const selected = [m, n, c, l, v].filter(x => x !== "").length;
+
+        if (selected < 3) {
+            alert("⚠️ SYSTEM ERROR: Please select at least 3 criteria!");
+            return;
+        }
+
+        let r = "";
+
+        // Final Logic Matrix
+        if (m === "Creative" && v === "Fine") { r = "Caffe Del Pabba 🇮🇹"; }
+        else if (m === "Focus" && n === "Silent") { r = "Kovan Co-Working 🖥️"; }
+        else if (l === "Backstreets" && v === "Cozy") { r = "Heroon Coffee Tea & Bakery 🥐"; }
+        else if (n === "Energetic" && l === "Main") { r = "Brewmood Üçkuyular 📍"; }
+        else if (m === "Focus" && v === "Cozy") { r = "Kiraz Kitap Kafe 📚"; }
+        else if (l === "Seaside" && n === "Hum") { r = "Casual Coffee Bakery 🌊"; }
+        else if (l === "Seaside" && v === "Fine") { r = "Leone Patisserie 🧁"; }
+        else if (m === "Focus" && l === "Main") { r = "Robust Coffee Shop (F.Altay) ☕"; }
+        else if (v === "Budget" && c === "Busy") { r = "Bi Mekan Cafe 📍"; }
+        else if (m === "Quick" && n === "Energetic") { r = "Pablo Artisan Coffee 🎸"; }
+        else if (c === "Networking" && l === "Backstreets") { r = "Tuck Coffee Güzelyalı 🧢"; }
+        else if (v === "Cozy" && c === "Isolated") { r = "ODA PLANT COFFEE SHOP 🌿"; }
+        else if (l === "Main" && v === "Fine") { r = "Caffe Molto 🎭"; }
+        else { r = "Cochem Coffee Göztepe ☕"; }
+
+        document.getElementById('res-name').innerText = r;
+        document.getElementById('result-box').style.display = "block";
+    }
+</script>
+</body>
+</html>
